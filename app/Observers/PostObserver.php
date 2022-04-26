@@ -41,7 +41,9 @@ class PostObserver
      */
     public function deleted(Post $post)
     {
-        Storage::delete($post->image);
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
         $post->likes->each->delete();
     }
 
