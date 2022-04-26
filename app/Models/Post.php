@@ -11,7 +11,7 @@ class Post extends Model
 {
     use HasFactory, Uuids;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -31,7 +31,7 @@ class Post extends Model
 
     public function getImageUrlAttribute()
     {
-        return url(Storage::url($this->image));
+        return $this->image ? url(Storage::url($this->image)) : null;
     }
 
     public function likes()
