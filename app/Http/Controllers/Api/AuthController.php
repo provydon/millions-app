@@ -23,6 +23,26 @@ class AuthController extends Controller
             return Helper::apiRes("email or username not found", [], false, 401);
         }
 
+       return $this->logUserIn($user);
+    }
+
+    public function register(Request $request){
+        try {
+            //code...
+            $user = new User;
+            $user->name = ucfirst($request->name);
+            $user->email = $request->email;
+            $user->username = $request->username;
+            $user->password = bcrypt($request->password);
+            $user->save();
+        } catch (\Throwable $th) {
+            return Helper::apiRes($th->getMessage(), [], false, 401);
+        }
+
+        return $this->logUserIn($user,"Registration Successful");
+    }
+
+    public function logUserIn(User $user,$mesaage = "Successfully logged in"){
         // if user found, attempt authentication
         Auth::attempt(['email' => $user->email, 'password' => request('password')]);
 
@@ -34,7 +54,7 @@ class AuthController extends Controller
         $token = Auth::user()->createToken(config('app.key'))->plainTextToken;
 
         // Authentication Succeeded
-        return Helper::apiRes("Successfully logged in", ["token" => $token], true, 200);
+        return Helper::apiRes($mesaage, ["token" => $token], true, 200);
     }
 
     public function user(){

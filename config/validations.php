@@ -15,9 +15,8 @@ return [
         ],
         'register' => [
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'username' => 'string|max:255|unique:users,username',
-            // 'image' => [new Imageable],
             'password' => 'required|string|min:6',
         ],
         'like-post' => [

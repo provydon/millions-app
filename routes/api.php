@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // Auth Routes
 Route::post('login', [AuthController::class, 'login'])->middleware("validate:login");
+Route::post('register', [AuthController::class, 'register'])->middleware("validate:register");
 
 // Post Routes
 Route::resource('posts', PostController::class);
