@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/', function () {
+    return ['Millions App' => app()->version()];
+});
 
 // Auth Routes
 Route::post('login', [AuthController::class, 'login'])->middleware("validate:login");
