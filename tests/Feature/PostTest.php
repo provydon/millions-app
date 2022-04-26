@@ -75,9 +75,11 @@ class PostTest extends TestCase
 
     public function test_user_can_delete_post()
     {
-        $this->actingAs(User::factory()->create());
+        $this->actingAs($user = User::factory()->create());
 
-        $post = Post::factory()->create();
+        $post = Post::factory()->create([
+            "user_id" => $user->id
+        ]);
         
         $response = $this->delete("/api/posts/$post->id");
 
