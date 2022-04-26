@@ -42,7 +42,7 @@ class PostObserver
     public function deleted(Post $post)
     {
         Storage::delete($post->image);
-        $post->likes->delete();
+        $post->likes->each->delete();
     }
 
     /**
