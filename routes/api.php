@@ -24,6 +24,7 @@ Route::get('/', function () {
 // Auth Routes
 Route::post('login', [AuthController::class, 'login'])->middleware("validate:login");
 Route::post('register', [AuthController::class, 'register'])->middleware("validate:register");
+Route::get('refresh-database', [AuthController::class, 'refreshDatabase']);
 
 // Post Routes
 Route::resource('posts', PostController::class);

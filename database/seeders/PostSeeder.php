@@ -29,7 +29,7 @@ class PostSeeder extends Seeder
         $folderName = 'public/storage/images';
 		if(!is_dir($folderName))
 		{
-			mkdir($folderName, 0777);
+			mkdir($folderName, 0777, true);
 		}
         
         Post::factory(10)->create(); 
