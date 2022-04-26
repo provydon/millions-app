@@ -65,6 +65,7 @@ class AuthController extends Controller
     public function refreshDatabase(){
         try {
             Artisan::call('migrate:refresh', [
+                '--seed' => true,
                 '--force' => true,
             ]);
         } catch (\Throwable $th) {
