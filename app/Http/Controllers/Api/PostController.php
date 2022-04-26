@@ -17,7 +17,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['index', 'show', 'like', 'unlike','likes']);
+        $this->middleware('auth:sanctum')->except(['index', 'show', 'like', 'unlike', 'likes']);
     }
 
     /**
@@ -60,7 +60,7 @@ class PostController extends Controller
         $post = new Post;
         $post->user_id = $user->id;
         $post->description = $request->description;
-        $path = FileService::storeFile($request->image, 'images', false, (bool)$request->isBase64, $filename, $request->file_type);
+        $path = $request->image ? FileService::storeFile($request->image, 'images', false, (bool)$request->isBase64, $filename, $request->file_type) : null;
         $post->image = $path;
         $post->save();
 

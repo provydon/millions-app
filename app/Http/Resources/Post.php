@@ -17,13 +17,13 @@ class Post extends JsonResource
     {
         return [
             "id" => $this->id,
-            "author"=> $this->user->username,
-            "image"=> $this->image_url,
-            "description"=> $this->description,
-            "total_likes"=> $this->likes->count(),
-            "last_5_likes"=> Like::collection($this->likes->take(-5)),
-            "date"=> Carbon::parse($this->created_at)->toDateTimeString(),
-            "created_at"=> Carbon::parse($this->created_at)->diffForHumans(),
+            "author" => $this->user ? $this->user->username : null,
+            "image" => $this->image_url,
+            "description" => $this->description,
+            "total_likes" => $this->likes->count(),
+            "last_5_likes" => Like::collection($this->likes->take(-5)),
+            "date" => Carbon::parse($this->created_at)->toDateTimeString(),
+            "created_at" => Carbon::parse($this->created_at)->diffForHumans(),
         ];
     }
 }
