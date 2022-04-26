@@ -109,6 +109,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $user = Auth::user();
+
+        if ($post->user_id != $user->id) {
+            return Helper::apiRes("unahtorized, you can only delete posts you created", [], false, 401);
+        }
+
         $post->delete();
         return Helper::apiRes("Post Deleted");
     }
@@ -117,6 +123,7 @@ class PostController extends Controller
     {
         $user = Auth::user();
         $like = Like::where("user_id", $user->id)->where("post_id", $request->post_id)->first();
+
         if (!$like) {
             $like = new Like;
             $like->user_id = $user->id;
@@ -131,6 +138,9 @@ class PostController extends Controller
         $user = Auth::user();
         $like = Like::where("user_id", $user->id)->where("post_id", $request->post_id)->first();
         if ($like) {
+            if ($like->user_id != $user->id) {
+                return Helper::apiRes("unahtorized, you can only unlike, likes you created", [], false, 401);
+            }
             $like->delete();
         }
         return Helper::apiRes("Post UnLiked");
